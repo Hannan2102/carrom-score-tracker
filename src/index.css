@@ -1,0 +1,744 @@
+:root {
+  --bg: #0b1020;
+  --text: #0d1226;
+  --muted: rgba(13, 18, 38, 0.68);
+  --border: rgba(13, 18, 38, 0.12);
+
+  --card: rgba(255, 255, 255, 0.92);
+  --card2: rgba(255, 255, 255, 0.86);
+
+  --shadow: 0 18px 60px rgba(0, 0, 0, 0.20);
+  --shadow2: 0 10px 30px rgba(0, 0, 0, 0.12);
+
+  --radius: 18px;
+  --radius2: 14px;
+
+  --accent: #0f172a;
+  --accent2: #1f2a44;
+
+  /* Carrom palette */
+  --wood1: rgba(255, 200, 140, 0.10);
+  --wood2: rgba(255, 150, 90, 0.08);
+
+  --queen: #e11d48;      /* red */
+  --coinDark: #111827;   /* black */
+  --coinLight: #f8fafc;  /* white */
+
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  color: var(--text);
+}
+
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  background:
+    /* subtle corner pocket shadows */
+    radial-gradient(circle at 6% 12%, rgba(0,0,0,0.35) 0 42px, transparent 44px),
+    radial-gradient(circle at 94% 12%, rgba(0,0,0,0.35) 0 42px, transparent 44px),
+    radial-gradient(circle at 6% 92%, rgba(0,0,0,0.35) 0 42px, transparent 44px),
+    radial-gradient(circle at 94% 92%, rgba(0,0,0,0.35) 0 42px, transparent 44px),
+
+    /* center circle + rings */
+    radial-gradient(circle at 50% 45%, rgba(255,255,255,0.12) 0 2px, transparent 3px),
+    radial-gradient(circle at 50% 45%, rgba(255,255,255,0.08) 0 105px, transparent 107px),
+    radial-gradient(circle at 50% 45%, rgba(225,29,72,0.10) 0 70px, transparent 72px),
+
+    /* board border feel */
+    linear-gradient(180deg, rgba(0,0,0,0.45), rgba(0,0,0,0.10)),
+    radial-gradient(1200px 700px at 50% 40%, rgba(255, 220, 180, 0.16), transparent 60%),
+
+    /* wood grain */
+    repeating-linear-gradient(
+      135deg,
+      rgba(255, 200, 140, 0.09) 0px,
+      rgba(255, 200, 140, 0.09) 10px,
+      rgba(255, 160, 90, 0.055) 10px,
+      rgba(255, 160, 90, 0.055) 22px
+    ),
+
+    /* base wood */
+    linear-gradient(180deg, #3a2418, #1b120c);
+
+  background-attachment: fixed;
+}
+
+/* ---------- Page layout ---------- */
+.page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 22px 18px 44px;
+}
+
+.title {
+  margin: 0 0 6px;
+  font-size: 30px;
+  letter-spacing: -0.02em;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.subtitle {
+  margin: 0 0 16px;
+  color: rgba(255, 255, 255, 0.72);
+  line-height: 1.4;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: var(--radius);
+  padding: 16px;
+  box-shadow: var(--shadow2);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 235, 210, 0.45);
+  box-shadow: 0 18px 55px rgba(0,0,0,0.22);
+  background: rgba(255, 250, 242, 0.94);
+
+}
+
+.card.soft { background: var(--card2); }
+
+.topBar {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 1.35fr 1fr;
+  gap: 14px;
+}
+
+@media (max-width: 900px) {
+  .layout { grid-template-columns: 1fr; }
+}
+
+/* ---------- Typography helpers ---------- */
+.label {
+  font-size: 12px;
+  color: var(--muted);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.big {
+  font-size: 28px;
+  font-weight: 850;
+  margin-top: 4px;
+  letter-spacing: -0.03em;
+  color: var(--text);
+}
+
+.sectionTitle {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 900;
+  color: rgba(13, 18, 38, 0.90);
+  letter-spacing: -0.01em;
+}
+
+.hint {
+  font-size: 14px;
+  color: rgba(13, 18, 38, 0.72);
+  line-height: 1.4;
+}
+
+.mono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+/* ---------- Inputs + buttons ---------- */
+.input {
+  width: 100%;
+  padding: 12px 12px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  font-size: 16px;
+  background: rgba(255, 255, 255, 0.84);
+  outline: none;
+  transition: box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+.input:focus {
+  border-color: rgba(15, 23, 42, 0.35);
+  box-shadow: 0 0 0 4px rgba(15, 23, 42, 0.10);
+}
+
+.btn {
+  width: 100%;
+  padding: 12px 14px;
+  border: none;
+  border-radius: 14px;
+  background: linear-gradient(180deg, #2a1a12, #120b08);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 850;
+  cursor: pointer;
+  box-shadow: 0 14px 30px rgba(0,0,0,0.28);
+  transition: transform 0.08s ease, filter 0.2s ease;
+}
+
+.btn:hover { filter: brightness(1.06); }
+.btn:active { transform: translateY(1px) scale(0.99); }
+.btn:disabled { opacity: 0.6; cursor: not-allowed; box-shadow: none; }
+
+.linkBtn {
+  width: 100%;
+  padding: 11px 12px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: rgba(255,255,255,0.74);
+  cursor: pointer;
+  font-weight: 800;
+  transition: transform 0.08s ease, background 0.2s ease;
+}
+
+.linkBtn:hover { background: rgba(255,255,255,0.90); }
+.linkBtn:active { transform: translateY(1px) scale(0.99); }
+.linkBtn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.small { max-width: 190px; }
+
+/* ---------- Rows / dividers ---------- */
+.row {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+@media (max-width: 720px) {
+  .row { flex-direction: column; }
+}
+
+.divider {
+  height: 1px;
+  background: rgba(13, 18, 38, 0.10);
+  margin: 8px 0;
+}
+
+/* ---------- Team boxes ---------- */
+.teamBox {
+  flex: 1;
+  border: 1px solid rgba(13,18,38,0.10);
+  border-radius: 16px;
+  padding: 12px 12px;
+  background: rgba(255,255,255,0.62);
+}
+
+.team {
+  font-size: 16px;
+  font-weight: 900;
+  margin-top: 6px;
+  letter-spacing: -0.01em;
+}
+
+/* ---------- Segmented controls ---------- */
+.formGrid {
+  display: grid;
+  gap: 14px;
+  margin-top: 10px;
+}
+
+.segmented {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.segBtn {
+  padding: 11px 12px;
+  border-radius: 14px;
+  border: 1px solid rgba(13,18,38,0.12);
+  background: rgba(255,255,255,0.78);
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 900;
+  transition: transform 0.08s ease, background 0.2s ease, border-color 0.2s ease;
+}
+
+.segBtn {
+  position: relative;
+  overflow: hidden;
+}
+
+.segBtn::before {
+  content: "";
+  position: absolute;
+  inset: -40px;
+  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.18), transparent 55%);
+  transform: rotate(12deg);
+  pointer-events: none;
+}
+
+.segBtn.active {
+  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.20), transparent 50%),
+              linear-gradient(180deg, #2a1a12, #120b08);
+  color: white;
+  border-color: rgba(42, 26, 18, 0.55);
+}
+
+
+.segBtn:hover { background: rgba(255,255,255,0.94); }
+.segBtn:active { transform: translateY(1px) scale(0.99); }
+.segBtn.active {
+  background: linear-gradient(180deg, #2a1a12, #120b08);
+  color: white;
+  border-color: rgba(42, 26, 18, 0.55);
+}
+
+/* ---------- History ---------- */
+.historyCard {
+  position: sticky;
+  top: 16px;
+  height: fit-content;
+}
+
+@media (max-width: 900px) {
+  .historyCard { position: static; }
+}
+
+.historyList {
+  display: grid;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.historyItem {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  border: 1px solid rgba(13,18,38,0.10);
+  border-radius: 16px;
+  padding: 12px 12px;
+  background: rgba(255,255,255,0.62);
+  transition: transform 0.15s ease;
+}
+
+.historyItem:hover { transform: translateY(-1px); }
+
+.historyBoard { font-weight: 950; letter-spacing: -0.02em; }
+.historyPoints { font-weight: 950; font-size: 18px; text-align: right; }
+.historyRight { text-align: right; min-width: 95px; }
+
+.dots { opacity: 0.92; margin-top: 3px; }
+
+/* Make queen dot look like a real coin */
+.dots {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.queenCoin {
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  background: radial-gradient(circle at 30% 30%, #ffb3c2, #e11d48 55%, #991b1b);
+  border: 1px solid rgba(0,0,0,0.25);
+  box-shadow: 0 2px 8px rgba(225, 29, 72, 0.35);
+  display: inline-block;
+}
+
+
+/* Coin dots (remaining coins) */
+.coinDot {
+  width: 9px;
+  height: 9px;
+  border-radius: 999px;
+  background: radial-gradient(circle at 30% 30%, #9aa3b2, #111827 65%, #000);
+  border: 1px solid rgba(255,255,255,0.12);
+  box-shadow: 0 1px 5px rgba(0,0,0,0.28);
+  display: inline-block;
+}
+
+/* ---------- Game over banner (fun) ---------- */
+.gameOverBanner {
+  border: 1px solid rgba(255,255,255,0.32);
+  margin-bottom: 14px;
+  box-shadow: var(--shadow);
+  position: relative;
+  overflow: hidden;
+}
+
+.gameOverBanner::before {
+  content: "";
+  position: absolute;
+  inset: -80px;
+  background:
+    radial-gradient(circle at 15% 30%, rgba(225,29,72,0.18), transparent 40%),
+    radial-gradient(circle at 90% 20%, rgba(99,102,241,0.16), transparent 42%),
+    radial-gradient(circle at 55% 90%, rgba(34,197,94,0.14), transparent 45%);
+  filter: blur(18px);
+}
+
+.gameOverBanner > * { position: relative; }
+
+.winTitle {
+  display: inline-flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.trophy {
+  width: 34px;
+  height: 34px;
+  border-radius: 14px;
+  background: radial-gradient(circle at 30% 25%, #fff2b5, #f59e0b);
+  box-shadow: 0 10px 18px rgba(245, 158, 11, 0.28);
+  display: inline-grid;
+  place-items: center;
+  font-size: 18px;
+}
+
+/* ---------- Disabled state ---------- */
+.disabledBlock { opacity: 0.6; pointer-events: none; }
+
+/* ---------- Resume overlay modal ---------- */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.46);
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  z-index: 50;
+}
+
+.modal { max-width: 540px; width: 100%; }
+
+@media (max-width: 520px) {
+  .modal .row { flex-direction: column; }
+}
+
+/* ---------- Landing & setup ---------- */
+.grid2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+@media (max-width: 720px) {
+  .grid2 { grid-template-columns: 1fr; }
+  .title { font-size: 26px; }
+  .page { padding: 18px 14px 38px; }
+}
+
+/* Spacing between buttons in cards */
+.card .btn + .btn,
+.card .btn + .linkBtn,
+.card .linkBtn + .linkBtn {
+  margin-top: 6px;
+}
+
+/* ---- Confetti ---- */
+.confetti {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 40; /* below modal (50), above page */
+}
+
+.confettiPiece {
+  position: absolute;
+  top: -20px;
+  border-radius: 4px;
+  opacity: 0.95;
+  animation-name: confettiFall;
+  animation-timing-function: cubic-bezier(.2,.7,.2,1);
+  animation-fill-mode: forwards;
+}
+
+/* Rotate colors using nth-child (gives variety without JS libs) */
+.confettiPiece:nth-child(6n + 1) { background: #e11d48; }
+.confettiPiece:nth-child(6n + 2) { background: #f59e0b; }
+.confettiPiece:nth-child(6n + 3) { background: #22c55e; }
+.confettiPiece:nth-child(6n + 4) { background: #3b82f6; }
+.confettiPiece:nth-child(6n + 5) { background: #a855f7; }
+.confettiPiece:nth-child(6n + 6) { background: #ffffff; }
+
+@keyframes confettiFall {
+  0%   { transform: translateY(0) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(110vh) rotate(520deg); opacity: 0.9; }
+}
+
+/* ---- Winner popup polish ---- */
+.winModal {
+  position: relative;
+  overflow: hidden;
+}
+
+.winModalHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.winModal::before {
+  content: "";
+  position: absolute;
+  inset: -60px;
+  background:
+    radial-gradient(circle at 10% 20%, rgba(225,29,72,0.18), transparent 45%),
+    radial-gradient(circle at 90% 10%, rgba(59,130,246,0.16), transparent 48%),
+    radial-gradient(circle at 50% 100%, rgba(34,197,94,0.14), transparent 52%);
+  filter: blur(18px);
+}
+
+.winModal > * { position: relative; }
+
+/* ===== CARROM BOARD FRAME (makes it scream carrom) ===== */
+
+.page {
+  position: relative;
+}
+
+/* Board frame behind everything */
+.page::before {
+  content: "";
+  position: fixed;
+  inset: 14px;
+  border-radius: 28px;
+  pointer-events: none;
+  z-index: -1;
+
+  background:
+    /* inner board face */
+    linear-gradient(180deg, rgba(255,245,230,0.16), rgba(0,0,0,0.06)),
+    radial-gradient(900px 600px at 50% 40%, rgba(255,220,180,0.22), transparent 62%),
+    repeating-linear-gradient(
+      135deg,
+      rgba(255, 200, 140, 0.12) 0px,
+      rgba(255, 200, 140, 0.12) 12px,
+      rgba(255, 160, 90, 0.07) 12px,
+      rgba(255, 160, 90, 0.07) 26px
+    );
+
+  box-shadow:
+    0 35px 100px rgba(0,0,0,0.55),
+    inset 0 0 0 10px rgba(0,0,0,0.28),
+    inset 0 0 0 22px rgba(255, 236, 210, 0.16);
+
+  border: 2px solid rgba(255, 236, 210, 0.22);
+}
+
+/* Carrom markings layer (center circle, diagonals, baselines, arrows) */
+.page::after {
+  content: "";
+  position: fixed;
+  inset: 14px;
+  border-radius: 28px;
+  pointer-events: none;
+  z-index: -1;
+
+  background:
+    /* pockets */
+    radial-gradient(circle at 5% 6%, rgba(0,0,0,0.55) 0 32px, transparent 34px),
+    radial-gradient(circle at 95% 6%, rgba(0,0,0,0.55) 0 32px, transparent 34px),
+    radial-gradient(circle at 5% 94%, rgba(0,0,0,0.55) 0 32px, transparent 34px),
+    radial-gradient(circle at 95% 94%, rgba(0,0,0,0.55) 0 32px, transparent 34px),
+
+    /* pocket rims */
+    radial-gradient(circle at 5% 6%, rgba(255,255,255,0.10) 0 38px, transparent 40px),
+    radial-gradient(circle at 95% 6%, rgba(255,255,255,0.10) 0 38px, transparent 40px),
+    radial-gradient(circle at 5% 94%, rgba(255,255,255,0.10) 0 38px, transparent 40px),
+    radial-gradient(circle at 95% 94%, rgba(255,255,255,0.10) 0 38px, transparent 40px),
+
+    /* center circle rings */
+    radial-gradient(circle at 50% 46%, rgba(225,29,72,0.25) 0 2px, transparent 3px),
+    radial-gradient(circle at 50% 46%, rgba(225,29,72,0.14) 0 74px, transparent 76px),
+    radial-gradient(circle at 50% 46%, rgba(255,255,255,0.10) 0 110px, transparent 112px),
+
+    /* diagonals like board guides */
+    linear-gradient(45deg, transparent 48%, rgba(255,255,255,0.08) 49%, rgba(255,255,255,0.08) 51%, transparent 52%),
+    linear-gradient(-45deg, transparent 48%, rgba(255,255,255,0.08) 49%, rgba(255,255,255,0.08) 51%, transparent 52%),
+
+    /* baselines / rectangles vibe (top/bottom) */
+    linear-gradient(to right, transparent 0 22%, rgba(225,29,72,0.18) 22% 78%, transparent 78% 100%),
+    linear-gradient(to right, transparent 0 22%, rgba(225,29,72,0.18) 22% 78%, transparent 78% 100%);
+
+  background-size:
+    auto, auto, auto, auto,
+    auto, auto, auto, auto,
+    auto, auto, auto,
+    auto, auto,
+    100% 2px,
+    100% 2px;
+
+  background-position:
+    left top, right top, left bottom, right bottom,
+    left top, right top, left bottom, right bottom,
+    center, center, center,
+    center, center,
+    center 18%, /* top baseline */
+    center 78%; /* bottom baseline */
+
+  background-repeat: no-repeat;
+}
+
+/* Mobile safe board frame */
+@media (max-width: 720px) {
+  .page::before,
+  .page::after {
+    inset: 10px;
+    border-radius: 22px;
+  }
+}
+
+/* Header mini carrom mark */
+.carromMark {
+  display: inline-grid;
+  grid-template-columns: 10px 10px;
+  grid-template-rows: 10px 10px;
+  gap: 6px;
+  margin-right: 10px;
+  transform: translateY(2px);
+  position: relative;
+}
+
+.cmPocket {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.22), rgba(0,0,0,0.62));
+  box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+}
+
+.cmCenter {
+  position: absolute;
+  inset: 6px;
+  margin: auto;
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  background: radial-gradient(circle at 30% 30%, #ffb3c2, #e11d48 55%, #991b1b);
+  box-shadow: 0 2px 10px rgba(225,29,72,0.30);
+  border: 1px solid rgba(0,0,0,0.20);
+}
+
+/* ===== HERO / CARROM SPINNER ===== */
+
+.hero {
+  display: grid;
+  place-items: center;
+  gap: 14px;
+  margin: 26px 0 30px;
+  text-align: center;
+}
+
+.carromSpinner {
+  width: 140px;
+  height: 140px;
+  display: grid;
+  place-items: center;
+}
+
+.board {
+  width: 120px;
+  height: 120px;
+  border-radius: 22px;
+  position: relative;
+
+  background:
+    radial-gradient(circle at center, rgba(255,255,255,0.18) 0 2px, transparent 3px),
+    radial-gradient(circle at center, rgba(225,29,72,0.22) 0 48px, transparent 50px),
+    repeating-linear-gradient(
+      135deg,
+      rgba(255, 200, 140, 0.35) 0px,
+      rgba(255, 200, 140, 0.35) 8px,
+      rgba(255, 160, 90, 0.22) 8px,
+      rgba(255, 160, 90, 0.22) 16px
+    ),
+    linear-gradient(180deg, #3a2418, #1b120c);
+
+  box-shadow:
+    inset 0 0 0 6px rgba(0,0,0,0.35),
+    inset 0 0 0 12px rgba(255,236,210,0.20),
+    0 20px 40px rgba(0,0,0,0.45);
+
+  animation: spinBoard 12s linear infinite;
+}
+
+.carromSpinner:hover .board {
+  animation-play-state: paused;
+  transform: scale(1.04);
+}
+
+/* Queen */
+.queen {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #ffb3c2, #e11d48 60%, #991b1b);
+  box-shadow: 0 0 12px rgba(225,29,72,0.65);
+}
+
+/* Pockets */
+.pocket {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #444, #000);
+  position: absolute;
+}
+
+.pocket.tl { top: 8px; left: 8px; }
+.pocket.tr { top: 8px; right: 8px; }
+.pocket.bl { bottom: 8px; left: 8px; }
+.pocket.br { bottom: 8px; right: 8px; }
+
+/* Spin animation */
+@keyframes spinBoard {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* Hero text */
+.heroTitle {
+  color: rgba(255,255,255,0.96);
+  font-size: 28px;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  margin: 6px 0 0;
+}
+
+.heroTagline {
+  color: rgba(255,255,255,0.75);
+  font-size: 14px;
+  max-width: 260px;
+}
+
+/* ===== Page transition: board zoom-in ===== */
+.pageEnter {
+  animation: pageEnter 380ms cubic-bezier(.2,.8,.2,1) both;
+}
+
+.pageExitToGame {
+  animation: pageExitToGame 420ms cubic-bezier(.2,.8,.2,1) both;
+  transform-origin: 50% 44%; /* feels like zooming into the center */
+}
+
+@keyframes pageEnter {
+  from { opacity: 0; transform: scale(0.985) translateY(6px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+@keyframes pageExitToGame {
+  0%   { opacity: 1; transform: scale(1); filter: blur(0px); }
+  55%  { opacity: 1; transform: scale(1.05); filter: blur(0px); }
+  100% { opacity: 0; transform: scale(1.12); filter: blur(1.4px); }
+}
+
+/* Optional: make the button feel “pressed” when launching */
+.launchingBtn {
+  transform: translateY(1px) scale(0.99);
+  filter: brightness(1.05);
+}
