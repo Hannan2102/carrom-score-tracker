@@ -14,3 +14,17 @@ The React Compiler is not enabled on this template because of its impact on dev 
 ## Expanding the ESLint configuration
 
 If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+
+
+### Pause checkpoint
+- Auth working (Google + guest)
+- Routing works
+- ModeSelect → PlayerSetup → Game flow works
+- Supabase matches table + RLS created
+- Insert not firing yet from PlayerSetup (needs debugging)
+
+Next step when resuming:
+- Verify supabase.from("matches").insert() is called
+- Check Vercel env vars
+- Inspect RLS insert conditions
+
